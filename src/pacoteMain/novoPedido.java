@@ -1,15 +1,16 @@
 package pacoteMain;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -27,13 +28,19 @@ public class novoPedido extends JFrame {
 	JTextField valorUni;
 	JTextField total;
 	JTextField valorTotal;
+	JTextField qtd;
+	JTextField valorField;
+	JTextField artigo2;
 
 	Calendar datas = Calendar.getInstance();
-	int dia = datas.get(Calendar.DATE);
+	int dia = datas.get(Calendar.DATE); 
 	int mes = datas.get(Calendar.MONTH);
 	int ano = datas.get(Calendar.YEAR);
 
 	String formData = dia + "/" + mes + 1 + "/" + ano;
+	
+	
+
 
 	public novoPedido() {
 
@@ -53,6 +60,7 @@ public class novoPedido extends JFrame {
 		JLabel cliente = new JLabel();
 		cliente.setText("Cliente: ");
 		cliente.setBounds(150, 20, 50, 20);
+		
 
 		JTextField nomeDoCliente = new JTextField();
 		nomeDoCliente.setBounds(200, 20, 200, 20);
@@ -166,6 +174,22 @@ public class novoPedido extends JFrame {
 			}
 
 		});
+		
+		JButton inserir = new JButton();
+		inserir.setBounds(500, 500, 90, 20);
+		inserir.setText("Inserir");
+		inserir.setVisible(true);
+		inserir.addActionListener(e -> {
+			acctionInserir(e );
+			
+
+		});
+		
+		JButton finalizar = new JButton();
+		finalizar.setBounds(600, 500, 90, 20);
+		finalizar.setText("Finalizar");
+		finalizar.setVisible(true);
+
 
 		JLabel total = new JLabel();
 		total.setText("Total");
@@ -205,12 +229,15 @@ public class novoPedido extends JFrame {
 			}
 
 		});
+	
 
 		setTitle("Novo Pedido");
 		setSize(800, 600);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setLayout(null);
+		
+		
 
 		add(pedido);
 		add(valor);
@@ -229,6 +256,25 @@ public class novoPedido extends JFrame {
 		add(descricaoArtigoText);
 		add(qtd);
 		add(qtdItem);
+		add(inserir);
+		add(finalizar);
+
+	   
+			
 
 	}
+	public void acctionInserir(ActionEvent e) {
+				
+				JTextField artigo2 = new JTextField();
+				artigo2.setVisible(true);
+				artigo2.setSize(200, 100);
+				artigo2.setLocation(100,100);
+				artigo2.setBackground(new Color(25,25,25));
+				getContentPane().add(artigo2);
+				
+				System.out.println("funciona");
+
+			}
+	
+
 }
