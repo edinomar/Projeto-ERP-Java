@@ -66,7 +66,7 @@ public class CadastrarCliente extends JFrame {
 	
 	add(nome);
 	add(inputCnpj);
-	add(cnpj);
+	add(cnpj); 
 	add(inputRazaoSocial);
 	add(codCliente);
 	add(inputCodCliente);

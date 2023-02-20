@@ -95,7 +95,7 @@ public class CadastroArtigo extends JFrame {
 
 			int inputCodArtigInt = Integer.parseInt(inputCodArtig);
 			int inputQtdArtigInt = Integer.parseInt(inputQtdArtig);
-			float inputPrecFloat = Float.parseFloat(inputPrec);
+			float inputPrecFloat = Float.parseFloat(inputPrec); 
 
 			try {
 				Connection conexao = FabricaConexao.getConexao();

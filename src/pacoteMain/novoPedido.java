@@ -13,6 +13,7 @@ import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class novoPedido extends JFrame {
@@ -31,6 +32,13 @@ public class novoPedido extends JFrame {
 	JTextField qtd;
 	JTextField valorField;
 	JTextField artigo2;
+	JTextField nomeDoCliente;
+	JTextField cpfDoCliente;
+	String cpf_cliente;
+	String cdArtigo;
+	String descricaoArtigoText;
+	String str;
+	
 
 	Calendar datas = Calendar.getInstance();
 	int dia = datas.get(Calendar.DATE); 
@@ -81,7 +89,7 @@ public class novoPedido extends JFrame {
 
 						String sql = "SELECT * FROM cliente WHERE cpf_cliente like ? ";// WHERE cpf_cliente = ?
 
-						PreparedStatement stmt = conexao.prepareStatement(sql);
+						PreparedStatement stmt = conexao.prepareStatement(sql); 
 						stmt.setString(1, cpf_cliente);
 
 						ResultSet resultado = stmt.executeQuery();
@@ -189,6 +197,16 @@ public class novoPedido extends JFrame {
 		finalizar.setBounds(600, 500, 90, 20);
 		finalizar.setText("Finalizar");
 		finalizar.setVisible(true);
+		finalizar.addActionListener(e -> {
+			try {
+				finalizarPedido(e );
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+
+		});
 
 
 		JLabel total = new JLabel();
@@ -263,18 +281,87 @@ public class novoPedido extends JFrame {
 			
 
 	}
-	public void acctionInserir(ActionEvent e) {
-				
-				JTextField artigo2 = new JTextField();
-				artigo2.setVisible(true);
-				artigo2.setSize(200, 100);
-				artigo2.setLocation(100,100);
-				artigo2.setBackground(new Color(25,25,25));
-				getContentPane().add(artigo2);
-				
-				System.out.println("funciona");
 
-			}
 	
+	private void finalizarPedido(ActionEvent e)throws SQLException {
+		
+		String inputnm_cliente = nome ;
+		String inputcpfDoCliente = cpf_cliente ;
+
+		String inputCodArtig = cdArtigo;
+		String descricaoArtig = descricaoArtigoText;
+		String inputQtdArtig = "10";
+		String inputPrec = str;
+
+
+		if (inputCodArtig !="") {
+		//	try {
+				Connection conexao = FabricaConexao.getConexao();
+
+				String sql = "INSERT INTO pedido (nm_cliente, cpf_cliente, nr_item, descricao, qtd_item, valor_total) VALUES (?,?,?,?,?,?)";
+				PreparedStatement stmt = conexao.prepareStatement(sql);
+				stmt.setString(1, inputnm_cliente);
+				stmt.setString(2, inputcpfDoCliente);
+				stmt.setString(3, inputCodArtig);
+				stmt.setString(4, descricaoArtig);
+				stmt.setString(5, inputQtdArtig);
+				stmt.setString(6, inputPrec);
+
+				stmt.execute();
+				conexao.close();
+
+				JOptionPane.showMessageDialog(null, "Artigo cadastrado com sucesso!!");
+				
+			//} catch (SQLException SQLIntegrityConstraintViolationException) {
+
+				JOptionPane.showMessageDialog(null, "Item já castrado");
+
+			//}
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "Informe todos os dados");
+			System.out.println("Err informe todos os dados!");
+		}
+	}
+	
+	public void acctionInserir(ActionEvent e) {
+		addLabel();
+
+		System.out.println("funciona");
+
+	}
+
+	int position = 90;
+
+	public void addLabel() {
+
+		position += 20;
+
+		JTextField artigo = new JTextField();
+		artigo.setVisible(true);
+		artigo.setBounds(25, position, 80, 20);
+		getContentPane().add(artigo);
+
+		JTextField descricao = new JTextField();
+		descricao.setVisible(true);
+		descricao.setBounds(105, position, 250, 20);
+		getContentPane().add(descricao);
+
+		JTextField qtdItem = new JTextField();
+		qtdItem.setBounds(355, position, 25, 20);
+		getContentPane().add(qtdItem);
+
+		JTextField valorUni = new JTextField();
+		valorUni.setBounds(380, position, 60, 20);
+		getContentPane().add(valorUni);
+
+		JTextField valorTotal = new JTextField();
+		valorTotal.setBounds(440, position, 60, 20);
+		getContentPane().add(valorTotal);
+
+		setResizable(false);
+
+	}
 
 }
+

@@ -27,12 +27,12 @@ public class ClasseFrame extends JFrame {
 	public ClasseFrame ()  {
 		
 		setJMenuBar(barra);
-		barra.add(mercantil);
-		barra.add(produto);
+		barra.add(mercantil); 
+		barra.add(produto); 
 		barra.add(cliente);
 		
 		mercantil.add(novoPedido);
-		produto.add(consultaEstoque);
+		produto.add(consultaEstoque); 
 		produto.add(cadastrarArtigo);
 		cliente.add(cadastrarCliente);
 		
